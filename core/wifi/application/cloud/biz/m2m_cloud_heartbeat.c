@@ -19,6 +19,7 @@
 #include "utils_time.h"
 #include "utils_bit_map.h"
 #include "iotc_errcode.h"
+#include "parse_cloud_timestamp_u64.h"
 
 #define STR_JSON_HB_CNT "cnt"
 #define CLOUD_HB_INTERVAL (50 * 1000)
@@ -71,9 +72,9 @@ static int32_t ParseHeartbeatInfo(M2mCloudContext *ctx, const IotcJson *jsonObj)
     IOTC_LOGI("get time info %s/%s", NON_NULL_STR(timestamp), NON_NULL_STR(timezone));
 
     if (timestamp != NULL && timezone != NULL) {
-        uint64_t ts = atoll(timestamp);
-        if (ts == 0) {
-            IOTC_LOGW("timestamp trans to num error");
+        uint64_t ts = 0;
+        if (!ParseCloudTimestampU64(timestamp, &ts) || ts == 0) {
+            IOTC_LOGW("timestamp trans to num error %s", NON_NULL_STR(timestamp));
             return IOTC_SDK_AILIFE_WIFI_ERR_CLOUD_INVALID_TIMESTAMP;
         }
         int32_t ret = UtilsSetUtcTimeStamp(ts);

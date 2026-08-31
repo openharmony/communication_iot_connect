@@ -75,6 +75,7 @@ if (defined(ohos_lite)) {
       include_dirs = iotc_inc
       defines = iotc_def
       deps = iotc_dep
+      cflags_cc = [ "-std=c++17" ]
       output_name = "iotc"
     }
   } else {
@@ -83,6 +84,7 @@ if (defined(ohos_lite)) {
       include_dirs = iotc_inc
       defines = iotc_def
       deps = iotc_dep
+      cflags_cc = [ "-std=c++17" ]
       output_name = "iotc"
     }
   }

@@ -18,6 +18,7 @@ set(IOTC_SRC_LIST
     ${CMAKE_CURRENT_SOURCE_DIR}/m2m_cloud_reg.c
     ${CMAKE_CURRENT_SOURCE_DIR}/m2m_cloud_sync.c
     ${CMAKE_CURRENT_SOURCE_DIR}/m2m_cloud_token.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/parse_cloud_timestamp_u64.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/m2m_cloud_utils.c
     ${CMAKE_CURRENT_SOURCE_DIR}/m2m_cloud_send.c
     ${CMAKE_CURRENT_SOURCE_DIR}/m2m_cloud_heartbeat.c

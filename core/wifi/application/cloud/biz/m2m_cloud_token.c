@@ -27,6 +27,7 @@
 #include "iotc_errcode.h"
 #include "iotc_event.h"
 #include "fwk_main.h"
+#include "parse_cloud_timestamp_u64.h"
 
 #define M2M_CLOUD_DEV_EXPIRED 3
 #define M2M_CLOUD_DEV_SECRET_ERR 5
@@ -226,9 +227,9 @@ static int32_t UpdateTimeStamp(const IotcJson *jsonObj)
     IOTC_LOGI("get time info %s/%s", NON_NULL_STR(timestamp), NON_NULL_STR(timezone));
 
     if (timestamp != NULL && timezone != NULL) {
-        uint64_t ts = atoll(timestamp);
-        if (ts == 0) {
-            IOTC_LOGW("timestamp trans to num error");
+        uint64_t ts = 0;
+        if (!ParseCloudTimestampU64(timestamp, &ts) || ts == 0) {
+            IOTC_LOGW("timestamp trans to num error %s", NON_NULL_STR(timestamp));
             return IOTC_SDK_AILIFE_WIFI_ERR_CLOUD_INVALID_TIMESTAMP;
         }
         int32_t ret = UtilsSetUtcTimeStamp(ts);
